@@ -1,5 +1,6 @@
 import os
 from os.path import isfile, join
+from datetime import datetime, timedelta
 
 def create_file_if_not_exist(file):
     if not os.path.exists(os.path.dirname(file)):
@@ -18,7 +19,17 @@ def group_by_1000s(created_dirs):
             n = len(tweets)
             for i in range(0, n, 1000):
                 chunk = tweets[i: min(i + 1000, n)]
-                output_file = created_dir + str(i / n) + '/tweets'
+                output_file = created_dir + str(i / 1000) + '/tweets'
                 create_file_if_not_exist(output_file)
                 with open(output_file, 'w') as output_f:
                     output_f.writelines(chunk)
+
+def get_week(date_str):
+    dt = datetime.strptime(date_str, '%Y-%m-%d')
+    start = dt - timedelta(days=dt.weekday())
+    return start.strftime('%Y-%m-%d')
+
+def get_month(date_str):
+    dt = datetime.strptime(date_str, '%Y-%m-%d')
+    start = dt.replace(day=1)
+    return start.strftime('%Y-%m-%d')
