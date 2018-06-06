@@ -21,13 +21,13 @@ if __name__ == '__main__':
         created_dirs = set()
         for input_file in utils.get_all_files_in_dir(input_dir):
             print 'Processing', input_file
-            parser = ScrapedTweetJsonParser(input_dir, input_dir, tweet_frequency)
+            parser = ScrapedTweetJsonParser(input_dir, input_file, tweet_frequency)
             created_dirs.update(parser.parse())
         utils.group_by_1000s(created_dirs)
     elif tweet_format == 'csv':
         created_dirs = set()
         for input_file in utils.get_all_files_in_dir(input_dir):
             print 'Processing', input_file
-            parser = ScrapedTweetParser(input_dir, input_dir, tweet_frequency)
+            parser = ScrapedTweetParser(input_dir, input_file, tweet_frequency)
             created_dirs.update(parser.parse())
         utils.group_by_1000s(created_dirs)
